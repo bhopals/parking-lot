@@ -31,7 +31,7 @@
           <manifest>
             <addClasspath>true</addClasspath>
             <classpathPrefix>lib/</classpathPrefix>
-            <mainClass>com.gojek.parking.App</mainClass>
+            <mainClass>com.gojek.parking.ParkingApp</mainClass>
           </manifest>
         </archive>
       </configuration>
