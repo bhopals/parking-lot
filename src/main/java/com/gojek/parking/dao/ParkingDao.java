@@ -13,7 +13,7 @@ public interface ParkingDao {
 	
 	Integer reserveParkingSpot(Car car) throws ParkingException; 
 	
-	boolean unReserveParkingSpot(int spot) throws ParkingException; 
+	Integer unReserveParkingSpot(int spot) throws ParkingException; 
 	
 	String getSlotNumbersForCarsWithColor(String color);
 	

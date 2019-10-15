@@ -21,7 +21,9 @@ public class ParkingConstants {
 	
 	public static final String UNRESERVE_SLOT_SUCCESS = "Slot number ## is free";
 	public static final String UNRESERVE_SLOT_ERROR = "Parking spot:## is already vacant!!!";
-	
+	public static final String UNRESERVE_SLOT_INVALID_INDEX= "Invalid parking spot index entered.";
+
+
 	public static final String INVALID_COMMAND = "No Command Found: ##";
 	public static final String INVALID_COMMAND_PARAM = "Missing Parameters in command: ##";
 	

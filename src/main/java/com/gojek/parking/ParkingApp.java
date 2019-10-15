@@ -41,9 +41,6 @@ public class ParkingApp {
 				String input = messageReader.readLine().trim();
 				String array [] = input.split(ParkingConstants.SPACE);
 
-				
-				printActionCommandDetails();
-
 				if(null == input) {
 					
 					/**** CHECK1 - If Command not Entered - Throw Exception***/
@@ -78,9 +75,7 @@ public class ParkingApp {
 			} catch (ParkingException e) {
 				System.out.println(e.getMessage());
 			} finally {
-				/*if(null != messageReader) {
-					messageReader.close();
-				}*/
+				//TODO
 			}
 
 		}

@@ -46,7 +46,7 @@ public class ParkingServiceImpl implements ParkingService {
 	@Override
 	public void reserveParkingSlot(String registrationNumber, String color) throws ParkingException {
 		Integer slot = parkingDao.reserveParkingSpot(new Car(registrationNumber, color));
-		if (null != parkingDao.reserveParkingSpot(new Car(registrationNumber, color))) {
+		if (null != slot) {
 			System.out.println(
 					ParkingConstants.RESERVE_SLOT_SUCCESS.replaceAll(ParkingConstants.REPLACER, String.valueOf(slot)));
 		} else {
@@ -56,9 +56,13 @@ public class ParkingServiceImpl implements ParkingService {
 
 	@Override
 	public void leaveParkingSlot(int spot) throws ParkingException {
-		if (parkingDao.unReserveParkingSpot(spot)) {
+		int value = parkingDao.unReserveParkingSpot(spot);
+		if (value == 1) {
 			System.out.println(ParkingConstants.UNRESERVE_SLOT_SUCCESS.replaceAll(ParkingConstants.REPLACER,
 					String.valueOf(spot)));
+		} else if(value == 0){
+			System.out.println(
+					ParkingConstants.UNRESERVE_SLOT_ERROR.replaceAll(ParkingConstants.REPLACER, String.valueOf(spot)));
 		} else {
 			System.out.println(
 					ParkingConstants.UNRESERVE_SLOT_ERROR.replaceAll(ParkingConstants.REPLACER, String.valueOf(spot)));

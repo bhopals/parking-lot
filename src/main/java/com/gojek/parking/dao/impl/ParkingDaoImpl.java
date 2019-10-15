@@ -1,6 +1,7 @@
 package com.gojek.parking.dao.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +42,7 @@ public class ParkingDaoImpl implements ParkingDao {
 		boolean isParkingManagerInitialized = false;
 		if(this.parkingDataMap == null) {	
 			this.parkingSpotSize = numberOfParkingSpots;
-			this.parkingDataMap = new HashMap<Integer, Car>(numberOfParkingSpots);
+			this.parkingDataMap = Collections.synchronizedMap(new HashMap<Integer, Car>(numberOfParkingSpots));
 			for(int i=1;i<=numberOfParkingSpots;i++){
 				this.parkingDataMap.put(i, null);
 			}
@@ -81,15 +82,18 @@ public class ParkingDaoImpl implements ParkingDao {
 	}
 
 	@Override
-	public boolean unReserveParkingSpot(int spot) throws ParkingException {
-		boolean isUnreserved = false;
-		Car car = this.parkingDataMap.get(spot);
-		if(null != car){
-			isUnreserved = true;
-			this.parkingDataMap.put(spot, null);
-		} 
-		return isUnreserved;
-		
+	public Integer unReserveParkingSpot(int spot) throws ParkingException {
+		Integer unReservedSpot = 0;
+		if(spot > this.parkingSpotSize) {
+			unReservedSpot = -1;
+		} else {
+			Car car = this.parkingDataMap.get(spot);
+			if(null != car){
+				unReservedSpot = 1;
+				this.parkingDataMap.put(spot, null);
+			} 
+		}
+		return unReservedSpot;
 	}
 
 	@Override
