@@ -34,9 +34,6 @@ public class ParkingServiceTest {
 		response = service.createParkingLot(5);
 		assertEquals(response, "Created a parking lot with 5 slots");
 
-		response = service.createParkingLot(5);
-		//assertEquals(response, "Parking Manager Already Exists. Kindly run 'RESET' to delete existing and then try creating again.");
-
 		service.deleteParkingManager();
 		response = service.createParkingLot(10);
 		assertEquals(response, "Created a parking lot with 10 slots");
@@ -81,7 +78,7 @@ public class ParkingServiceTest {
 
 	}
 	
-	//@Test
+	@Test
 	public void getParkingSlotStatusTest(){
 		
 		service.createParkingLot(5);
@@ -97,7 +94,7 @@ public class ParkingServiceTest {
 		
 	}
 	
-	//@Test
+	@Test
 	public void deleteParkingManagerTest(){
 		
 		assertFalse(service.isParkingLotInitialised());
@@ -109,7 +106,7 @@ public class ParkingServiceTest {
 		
 	}
 	
-	//@Test
+	@Test
 	public void isParkingLotInitialisedTest(){
 		
 		assertFalse(service.isParkingLotInitialised());
@@ -119,7 +116,7 @@ public class ParkingServiceTest {
 	}
 
 	
-	//@Test
+	@Test
 	public void getSlotNumbersForCarsWithColorTest(){
 		
 		service.createParkingLot(5);
@@ -129,20 +126,20 @@ public class ParkingServiceTest {
 		service.reserveParkingSlot("DD", "White");
 		
 		response = service.getSlotNumbersForCarsWithColor("Blue");
-		assertEquals(response, "1,3");
+		assertEquals(response, "[1, 3]");
 		
 		response = service.getSlotNumbersForCarsWithColor("Red");
-		assertEquals(response, "2");
+		assertEquals(response, "[2]");
 		
 		response = service.getSlotNumbersForCarsWithColor("White");
-		assertEquals(response, "4");
+		assertEquals(response, "[4]");
 
 		response = service.getSlotNumbersForCarsWithColor("Orange");
 		assertEquals(response, ParkingConstants.NOT_FOUND);
 
 	}
 	
-	//@Test
+	@Test
 	public void getRegistrationNumberForCarsWithColorTest(){
 		
 		service.createParkingLot(5);
@@ -152,20 +149,20 @@ public class ParkingServiceTest {
 		service.reserveParkingSlot("DD", "White");
 		
 		response = service.getRegistrationNumberForCarsWithColor("Blue");
-		assertEquals(response, "AA,CC");
+		assertEquals(response, "[AA, CC]");
 		
 		response = service.getRegistrationNumberForCarsWithColor("Red");
-		assertEquals(response, "BB");
+		assertEquals(response, "[BB]");
 		
 		response = service.getRegistrationNumberForCarsWithColor("White");
-		assertEquals(response, "DD");
+		assertEquals(response, "[DD]");
 
 		response = service.getRegistrationNumberForCarsWithColor("Orange");
 		assertEquals(response, ParkingConstants.NOT_FOUND);
 
 	}
 	
-	//@Test
+	@Test
 	public void getSlotNumbersForRegistrationNumberTest(){
 		
 		service.createParkingLot(5);
