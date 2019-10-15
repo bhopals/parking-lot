@@ -18,4 +18,6 @@ public interface ParkingService {
 	
 	void getSlotNumbersForRegistrationNumber(String registrationNumber);
 	
+	void deleteParkingManager() throws ParkingException;
+
 }

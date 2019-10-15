@@ -1,52 +1,65 @@
 package com.gojek.parking.service.impl;
 
+import java.util.Map;
+
+import com.gojek.parking.dao.ParkingDao;
+import com.gojek.parking.dao.impl.ParkingDaoImpl;
 import com.gojek.parking.exception.ParkingException;
+import com.gojek.parking.model.Car;
 import com.gojek.parking.service.ParkingService;
 
 public class ParkingServiceImpl implements ParkingService {
 
-	//ParkingDao parkingDao = ParkingDao.getInstace;
+	ParkingDao parkingDao = new ParkingDaoImpl().getInstance();
 	
 	@Override
 	public String createParkingLot(int numberOfSpotsForParking) throws ParkingException {
-		// TODO Auto-generated method stub
-		return null;
+		parkingDao.initParkingManager(numberOfSpotsForParking);
+		return "Created a parking lot with "+numberOfSpotsForParking+" slots";
 	}
 
 	@Override
 	public String reserveParkingSlot(String registrationNumber, String color) throws ParkingException {
-		// TODO Auto-generated method stub
-		return null;
+		int slot = parkingDao.reserveParkingSpot(new Car(registrationNumber, color));
+		return "Allocated slot number: "+slot;
 	}
 
 	@Override
 	public String leaveParkingSlot(int spot) throws ParkingException {
-		// TODO Auto-generated method stub
-		return null;
+		parkingDao.unReserveParkingSpot(spot);
+		return "Slot number "+spot+" is free";
 	}
 
 	@Override
 	public void getParkingSlotStatus() {
-		// TODO Auto-generated method stub
+		System.out.println("Slot No. Registration No.              Color ");
+		System.out.println("------------------------------------------------------------");		
+		for (Map.Entry<Integer, Car> entry : parkingDao.getParkingSlotStatus().entrySet()) {
+		    Car car = entry.getValue();
+		    System.out.println(entry.getKey()+" "+car.getRegistrationNumber()+"              "+car.getColor());			
+		}		
+		System.out.println("------------------------------------------------------------");
 		
 	}
 
 	@Override
 	public void getSlotNumbersForCarsWithColor(String color) {
-		// TODO Auto-generated method stub
-		
+		System.out.println(parkingDao.getSlotNumbersForCarsWithColor(color));		
 	}
 
 	@Override
 	public void getRegistrationNumberForCarsWithColor(String color) {
-		// TODO Auto-generated method stub
-		
+		System.out.println(parkingDao.getRegistrationNumberForCarsWithColor(color));		
 	}
 
 	@Override
 	public void getSlotNumbersForRegistrationNumber(String registrationNumber) {
-		// TODO Auto-generated method stub
-		
+		System.out.println(parkingDao.getSlotNumbersForRegistrationNumber(registrationNumber));		
+	}
+
+	@Override
+	public void deleteParkingManager() throws ParkingException {
+		parkingDao.deleteParkingManager();
 	}
 
 }

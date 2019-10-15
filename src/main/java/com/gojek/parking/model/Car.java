@@ -22,7 +22,7 @@ public class Car implements Serializable {
 	 * @param color
 	 * @param registrationNumber
 	 */
-	public Car(String color, String registrationNumber) {
+	public Car(String registrationNumber, String color) {
 		super();
 		this.color = color;
 		this.registrationNumber = registrationNumber;
