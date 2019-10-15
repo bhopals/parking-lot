@@ -57,7 +57,7 @@ public class CommandManager {
 		 *      - PARAM VALUE
 		 *      
 		 ***/
-		paramValue = commandMap.get(array[0]);
+		paramValue = commandMap.get(array[0].toLowerCase());
 		
 		/*** COMMAND FOUND ***/
 		if(null != paramValue) {

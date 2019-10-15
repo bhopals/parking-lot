@@ -37,7 +37,7 @@ public class ParkingApp {
 				
 				/***Initialization of Buffered READER Object to Get the Input of from Console. */
 				messageReader = new BufferedReader(new InputStreamReader(System.in));
-				String input = messageReader.readLine().trim().toLowerCase();
+				String input = messageReader.readLine().trim();
 				String array [] = input.split(ParkingConstants.SPACE);
 				System.out.println("input:"+input);
 

@@ -4,11 +4,11 @@ import com.gojek.parking.exception.ParkingException;
 
 public interface ParkingService {
 
-	String createParkingLot(int numberOfSpotsForParking) throws ParkingException;
+	void createParkingLot(int numberOfSpotsForParking) throws ParkingException;
 	
-	String reserveParkingSlot(String registrationNumber, String color) throws ParkingException;
+	void reserveParkingSlot(String registrationNumber, String color) throws ParkingException;
 	
-	String leaveParkingSlot(int spot) throws ParkingException;
+	void leaveParkingSlot(int spot) throws ParkingException;
 	
 	void getParkingSlotStatus();
 	

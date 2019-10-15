@@ -10,6 +10,15 @@ import com.gojek.parking.dao.ParkingDao;
 import com.gojek.parking.exception.ParkingException;
 import com.gojek.parking.model.Car;
 
+/**
+ * @author Bhopal Singh
+ *
+ * ParkingDaoImpl 
+ * 
+ * 	- Handles all the operation on the MAP data which stores Parking Details 
+ * 	
+ *
+ */
 public class ParkingDaoImpl implements ParkingDao {
 
 	private Map<Integer, Car> parkingDataMap = null;
@@ -28,27 +37,29 @@ public class ParkingDaoImpl implements ParkingDao {
 	}
 	
 	@Override
-	public void initParkingManager(int numberOfParkingSpots) throws ParkingException {
+	public boolean initParkingManager(int numberOfParkingSpots) throws ParkingException {
+		boolean isParkingManagerInitialized = false;
 		if(this.parkingDataMap == null) {	
 			this.parkingSpotSize = numberOfParkingSpots;
 			this.parkingDataMap = new HashMap<Integer, Car>(numberOfParkingSpots);
-			for(int i=0;i<numberOfParkingSpots;i++){
+			for(int i=1;i<=numberOfParkingSpots;i++){
 				this.parkingDataMap.put(i, null);
 			}
-		} else {
-			throw new ParkingException("Parking Manager Already Exists. Kindly run 'RESET' to delete existing and then try creating again");
-		}
+			isParkingManagerInitialized = true;
+		} 
+		
+		return isParkingManagerInitialized;
 	}
 
 	@Override
-	public void deleteParkingManager() throws ParkingException {
+	public boolean deleteParkingManager() throws ParkingException {
+		boolean isParkingManagerDeleted = false;
 		if(null != parkingDataMap) {
 			this.parkingDataMap = null;
 			this.parkingSpotSize = null;
-		} else {
-			throw new ParkingException("Parking Lot in not initilized. Kindly run 'create_par' command");
-		}
-		
+			isParkingManagerDeleted = true;
+		} 
+		return isParkingManagerDeleted;
 
 	}
 
@@ -64,21 +75,20 @@ public class ParkingDaoImpl implements ParkingDao {
 		
 		if(null != emptySpot) {
 			this.parkingDataMap.put(emptySpot, car);
-		} else {
-			throw new ParkingException("Sorry, parking lot is full");
 		}
 		return emptySpot;
 		
 	}
 
 	@Override
-	public void unReserveParkingSpot(int spot) throws ParkingException {
+	public boolean unReserveParkingSpot(int spot) throws ParkingException {
+		boolean isUnreserved = false;
 		Car car = this.parkingDataMap.get(spot);
 		if(null != car){
+			isUnreserved = true;
 			this.parkingDataMap.put(spot, null);
-		} else {
-			throw new ParkingException("Parking spot:"+spot+" is already vacant!!!");
-		}
+		} 
+		return isUnreserved;
 		
 	}
 
@@ -118,24 +128,19 @@ public class ParkingDaoImpl implements ParkingDao {
 		return returnParkingDataMapResult(list);		
 	}
 	
-	private String returnParkingDataMapResult(List<String> list) {
-		if(list.isEmpty()) {
-			return list.toString();
-		} else {
-			return ParkingConstants.NOT_FOUND;
-		}
-	}
-
 	@Override
 	public String getParkingSlotStatus() {
 		boolean isReservedSlot = false;
 		StringBuilder message = new StringBuilder();
-		for (Map.Entry<Integer, Car> entry : this.parkingDataMap.entrySet()) {
-			Car car = entry.getValue();
-			if(null != car) {
-				isReservedSlot = true;
-				message.append(entry.getKey()+" "+car.getRegistrationNumber()+"              "+car.getColor())
-						.append(ParkingConstants.NEW_LINE);
+		if(null != this.parkingDataMap) {
+			for (Map.Entry<Integer, Car> entry : this.parkingDataMap.entrySet()) {
+				Car car = entry.getValue();
+				if(null != car) {
+					isReservedSlot = true;
+					message.append(entry.getKey()).append(ParkingConstants.DOUBLE_SPACER)
+							.append(car.getRegistrationNumber()).append(ParkingConstants.DOUBLE_SPACER)
+							.append(car.getColor()).append(ParkingConstants.NEW_LINE);
+				}
 			}
 		}
 		
@@ -152,6 +157,12 @@ public class ParkingDaoImpl implements ParkingDao {
 		return this.parkingDataMap == null ? false : true;
 	}
 	
-	
+	private String returnParkingDataMapResult(List<String> list) {
+		if(!list.isEmpty()) {
+			return list.toString();
+		} else {
+			return ParkingConstants.NOT_FOUND;
+		}
+	}
 
 }
