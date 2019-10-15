@@ -10,8 +10,8 @@ import com.gojek.parking.constant.ParkingConstants;
  */
 public class ParkingUtil {
 	
-	public static boolean isNotNullOrNonEmptyString(String string){
-		return null == string || ParkingConstants.EMPTY.equals(string) ? false : true; 
+	public static boolean isNullOrEmptyString(String string){
+		return null == string || ParkingConstants.EMPTY.equals(string.trim()) ? true : false; 
 	}
 
 }

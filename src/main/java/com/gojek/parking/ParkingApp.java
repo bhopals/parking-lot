@@ -8,6 +8,7 @@ import com.gojek.parking.constant.ParkingCommands;
 import com.gojek.parking.constant.ParkingConstants;
 import com.gojek.parking.exception.ParkingException;
 import com.gojek.parking.manager.CommandManager;
+import com.gojek.parking.util.ParkingUtil;
 
 /**
  * Main App - ParkingAPP
@@ -41,7 +42,7 @@ public class ParkingApp {
 				String input = messageReader.readLine().trim();
 				String array [] = input.split(ParkingConstants.SPACE);
 
-				if(null == input) {
+				if(ParkingUtil.isNullOrEmptyString(input)) {
 					
 					/**** CHECK1 - If Command not Entered - Throw Exception***/
 					throw new ParkingException(ParkingConstants.NO_COMMAND_ENTERED);
