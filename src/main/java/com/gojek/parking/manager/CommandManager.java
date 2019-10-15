@@ -15,6 +15,7 @@ public class CommandManager {
         put(ParkingCommands.LEAVE.getValue(), 0);
         put(ParkingCommands.RESET.getValue(), 0);
         put(ParkingCommands.STATUS.getValue(), 0);
+        put(ParkingCommands.CREATE_PARKING_LOT.getValue(), 1);
         put(ParkingCommands.SLOTS_NUMBER_FOR_CARS_WITH_COLOR.getValue(), 1);
         put(ParkingCommands.SLOTS_NUMBER_FOR_REGISTRATION_NUMBER.getValue(), 1);
         put(ParkingCommands.REGISTRATION_NUMBER_FOR_CARS_WITH_COLOR.getValue(), 1);

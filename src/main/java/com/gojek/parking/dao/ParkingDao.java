@@ -1,14 +1,17 @@
 package com.gojek.parking.dao;
 
 import com.gojek.parking.exception.ParkingException;
+import com.gojek.parking.model.Car;
 
 public interface ParkingDao {
 	
 	
-	String initParkingManager(int numberOfParkingSpots) throws ParkingException;
+	void initParkingManager(int numberOfParkingSpots) throws ParkingException;
 	
-	String deleteParkingManager() throws ParkingException;
+	void deleteParkingManager() throws ParkingException;
 	
-	String reserveParkingSpot(int spot) throws ParkingException; 
-
+	Integer reserveParkingSpot(Car car) throws ParkingException; 
+	
+	void unReserveParkingSpot(int spot) throws ParkingException; 
+	
 }
