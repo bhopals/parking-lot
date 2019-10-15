@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.gojek.parking.constant.ParkingCommands;
+import com.gojek.parking.constant.ParkingConstants;
+import com.gojek.parking.exception.ParkingException;
 
 public class CommandManager {
 	
@@ -24,5 +26,22 @@ public class CommandManager {
 		return commandMap;
 	}
 
-	
+	public String isValidCommandEntered(String command) throws ParkingException {
+		Integer paramValue;
+		String commandValue;
+		
+		String array [] = command.split(ParkingConstants.SPACE);
+		
+		paramValue = commandMap.get(array[0]);
+		
+		if(null != paramValue) {
+			
+			//if() If Parameter is INCORRECT
+			
+		} else {
+			throw new ParkingException(ParkingConstants.COMMAND_NOT_FOUND);
+		}
+		
+		return "";
+	}
 }

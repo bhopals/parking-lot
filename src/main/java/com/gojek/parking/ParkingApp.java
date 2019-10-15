@@ -63,6 +63,7 @@ public class ParkingApp {
 		System.out.println("1. Parking Initialization ==> create_parking_lot <NUMBER>");
 		System.out.println("2. Park the Car ==> park <car_number> <CAR_COLOR>");
 		System.out.println("3. Unpark the Car	==> leave <PARKING_SLOT_NUMBER>");
+		System.out.println("4. Rest the Parking Lot ==> reset");
 		System.out.println("\n");
 		System.out.println("B. Commands to Query Details");
 		System.out.println("----------------------------------------------------------");
