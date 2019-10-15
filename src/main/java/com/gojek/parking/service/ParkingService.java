@@ -1,24 +1,22 @@
 package com.gojek.parking.service;
 
-import com.gojek.parking.exception.ParkingException;
-
 public interface ParkingService {
 
-	void createParkingLot(int numberOfSpotsForParking) throws ParkingException;
+	String createParkingLot(int numberOfSpotsForParking);
 	
-	void reserveParkingSlot(String registrationNumber, String color) throws ParkingException;
+	String reserveParkingSlot(String registrationNumber, String color);
 	
-	void leaveParkingSlot(int spot) throws ParkingException;
+	String leaveParkingSlot(int spot);
 	
-	void getParkingSlotStatus();
+	String getParkingSlotStatus();
 	
-	void getSlotNumbersForCarsWithColor(String color);
+	String getSlotNumbersForCarsWithColor(String color);
 	
-	void getRegistrationNumberForCarsWithColor(String color);
+	String getRegistrationNumberForCarsWithColor(String color);
 	
-	void getSlotNumbersForRegistrationNumber(String registrationNumber);
+	String getSlotNumbersForRegistrationNumber(String registrationNumber);
 	
-	void deleteParkingManager() throws ParkingException;
+	String deleteParkingManager();
 	
 	boolean isParkingLotInitialised();
 

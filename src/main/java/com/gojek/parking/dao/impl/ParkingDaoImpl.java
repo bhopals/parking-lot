@@ -38,7 +38,7 @@ public class ParkingDaoImpl implements ParkingDao {
 	}
 	
 	@Override
-	public boolean initParkingManager(int numberOfParkingSpots) throws ParkingException {
+	public boolean initParkingManager(int numberOfParkingSpots) {
 		boolean isParkingManagerInitialized = false;
 		if(this.parkingDataMap == null) {	
 			this.parkingSpotSize = numberOfParkingSpots;
@@ -54,7 +54,7 @@ public class ParkingDaoImpl implements ParkingDao {
 	}
 
 	@Override
-	public boolean deleteParkingManager() throws ParkingException {
+	public boolean deleteParkingManager() {
 		boolean isParkingManagerDeleted = false;
 		if(null != parkingDataMap) {
 			this.parkingDataMap = null;
@@ -66,7 +66,7 @@ public class ParkingDaoImpl implements ParkingDao {
 	}
 
 	@Override
-	public Integer reserveParkingSpot(Car car) throws ParkingException {
+	public Integer reserveParkingSpot(Car car) {
 		Integer emptySpot = null;
 		for (Map.Entry<Integer, Car> entry : this.parkingDataMap.entrySet()) {
 		    if(entry.getValue() == null) {
@@ -83,7 +83,7 @@ public class ParkingDaoImpl implements ParkingDao {
 	}
 
 	@Override
-	public Integer unReserveParkingSpot(int spot) throws ParkingException {
+	public Integer unReserveParkingSpot(int spot) {
 		Integer unReservedSpot = 0;
 		if(spot > this.parkingSpotSize) {
 			unReservedSpot = -1;

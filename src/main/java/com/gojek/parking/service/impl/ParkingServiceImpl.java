@@ -34,67 +34,71 @@ public class ParkingServiceImpl implements ParkingService {
 	}
 
 	@Override
-	public void createParkingLot(int numberOfSpotsForParking) throws ParkingException {
+	public String createParkingLot(int numberOfSpotsForParking) {
 		if (parkingDao.initParkingManager(numberOfSpotsForParking)) {
-			System.out.println(ParkingConstants.CREATE_SUCCESS.replaceAll(ParkingConstants.REPLACER,
-					String.valueOf(numberOfSpotsForParking)));
+			return ParkingConstants.CREATE_SUCCESS.replaceAll(ParkingConstants.REPLACER,
+					String.valueOf(numberOfSpotsForParking));
 		} else {
-			System.out.println(ParkingConstants.CREATE_ERROR);
+			return ParkingConstants.CREATE_ERROR;
 		}
 	}
 
 	@Override
-	public void reserveParkingSlot(String registrationNumber, String color) throws ParkingException {
+	public String reserveParkingSlot(String registrationNumber, String color) {
 		Integer slot = parkingDao.reserveParkingSpot(new Car(registrationNumber, color));
 		if (null != slot) {
-			System.out.println(
-					ParkingConstants.RESERVE_SLOT_SUCCESS.replaceAll(ParkingConstants.REPLACER, String.valueOf(slot)));
+			return ParkingConstants.RESERVE_SLOT_SUCCESS.replaceAll(ParkingConstants.REPLACER, String.valueOf(slot));
 		} else {
-			System.out.println(ParkingConstants.RESERVE_SLOT_ERROR);
+			return ParkingConstants.RESERVE_SLOT_ERROR;
 		}
 	}
 
 	@Override
-	public void leaveParkingSlot(int spot) throws ParkingException {
+	public String leaveParkingSlot(int spot) {
 		int value = parkingDao.unReserveParkingSpot(spot);
 		if (value == 1) {
-			System.out.println(ParkingConstants.UNRESERVE_SLOT_SUCCESS.replaceAll(ParkingConstants.REPLACER,
-					String.valueOf(spot)));
+			return ParkingConstants.UNRESERVE_SLOT_SUCCESS.replaceAll(ParkingConstants.REPLACER,
+					String.valueOf(spot));
 		} else if(value == 0){
-			System.out.println(
-					ParkingConstants.UNRESERVE_SLOT_ERROR.replaceAll(ParkingConstants.REPLACER, String.valueOf(spot)));
+			return ParkingConstants.UNRESERVE_SLOT_ERROR.replaceAll(ParkingConstants.REPLACER, String.valueOf(spot));
 		} else {
-			System.out.println(ParkingConstants.UNRESERVE_SLOT_INVALID_INDEX);
+			return ParkingConstants.UNRESERVE_SLOT_INVALID_INDEX;
 		}
 	}
 
 	@Override
-	public void getParkingSlotStatus() {
-		System.out.println(ParkingConstants.SLOT_STATUS_HEADER);
-		System.out.println(ParkingConstants.SLOT_HEADER_SEP);
-		System.out.println(parkingDao.getParkingSlotStatus());
-		System.out.println(ParkingConstants.SLOT_HEADER_SEP);
+	public String getParkingSlotStatus() {
+		StringBuilder message = new StringBuilder();
+		message.append(ParkingConstants.SLOT_STATUS_HEADER)
+		.append(ParkingConstants.SLOT_STATUS_HEADER)
+		.append(ParkingConstants.SLOT_HEADER_SEP)
+		.append(parkingDao.getParkingSlotStatus())
+		.append(ParkingConstants.SLOT_HEADER_SEP);
+		
+		return message.toString();
 	}
 
 	@Override
-	public void getSlotNumbersForCarsWithColor(String color) {
-		System.out.println(parkingDao.getSlotNumbersForCarsWithColor(color));
+	public String getSlotNumbersForCarsWithColor(String color) {
+		return parkingDao.getSlotNumbersForCarsWithColor(color);
 	}
 
 	@Override
-	public void getRegistrationNumberForCarsWithColor(String color) {
-		System.out.println(parkingDao.getRegistrationNumberForCarsWithColor(color));
+	public String getRegistrationNumberForCarsWithColor(String color) {
+		return parkingDao.getRegistrationNumberForCarsWithColor(color);
 	}
 
 	@Override
-	public void getSlotNumbersForRegistrationNumber(String registrationNumber) {
-		System.out.println(parkingDao.getSlotNumbersForRegistrationNumber(registrationNumber));
+	public String getSlotNumbersForRegistrationNumber(String registrationNumber) {
+		return parkingDao.getSlotNumbersForRegistrationNumber(registrationNumber);
 	}
 
 	@Override
-	public void deleteParkingManager() throws ParkingException {
+	public String deleteParkingManager() {
 		if(parkingDao.deleteParkingManager())
-			System.out.println(ParkingConstants.DELETE_SUCCESS);
+			return ParkingConstants.DELETE_SUCCESS;
+		 else 
+		 	return ParkingConstants.DELETE_ERROR;
 	}
 
 	@Override

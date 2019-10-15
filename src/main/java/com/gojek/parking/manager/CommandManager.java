@@ -89,7 +89,7 @@ public class CommandManager {
 	 * @param array
 	 * @throws ParkingException 
 	 */
-	public void executeCommand(String array[]) throws ParkingException {
+	public String executeCommand(String array[]) throws ParkingException {
 		
 		String commandValue = array[0];
 		
@@ -106,47 +106,47 @@ public class CommandManager {
 			
 			/**** STEP2A. CREATE_PARKING ***/
 			Integer val = Integer.parseInt(array[1]);				
-			parkingService.createParkingLot(val);
+			return parkingService.createParkingLot(val);
 			
 		} else if(ParkingCommands.PARK.getValue().equalsIgnoreCase(commandValue)) {
 			
 			/**** STEP2B. PARK CAR / RESERVE PARKING SPACE ***/
-			parkingService.reserveParkingSlot(array[1], array[2]);
+			return parkingService.reserveParkingSlot(array[1], array[2]);
 		
 		} else if(ParkingCommands.LEAVE.getValue().equalsIgnoreCase(commandValue)) {
 			
 			/**** STEP2C. LEAVE PARKING / UNRESERVE PARKING SPACE ***/
-			parkingService.leaveParkingSlot(Integer.parseInt(array[1]));
+			return parkingService.leaveParkingSlot(Integer.parseInt(array[1]));
 		
 		} else if(ParkingCommands.RESET.getValue().equalsIgnoreCase(commandValue)) {
 			
 			/**** STEP2D. DELETE PARKING / RESET PARKING DATA OBJECT ***/
-			parkingService.deleteParkingManager();			
+			return parkingService.deleteParkingManager();			
 
 		} else if(ParkingCommands.STATUS.getValue().equalsIgnoreCase(commandValue)) {
 			
 			/**** STEP2E. FETCH PARKING COMPLETE STATUS ***/
-			parkingService.getParkingSlotStatus();
+			return parkingService.getParkingSlotStatus();
 			
 		} else if(ParkingCommands.REGISTRATION_NUMBER_FOR_CARS_WITH_COLOR.getValue().equalsIgnoreCase(commandValue)) {
 			
 			/**** STEP2F. FETCH REGISTRATION NUMBERS FOR CARS BY COLOR ***/
-			parkingService.getRegistrationNumberForCarsWithColor(array[1]);
+			return parkingService.getRegistrationNumberForCarsWithColor(array[1]);
 			
 		} else if(ParkingCommands.SLOTS_NUMBER_FOR_REGISTRATION_NUMBER.getValue().equalsIgnoreCase(commandValue)) {
 			
 			/**** STEP2G. FETCH SLOT NUMBERS OF CARS BY COLOR ***/
-			parkingService.getSlotNumbersForRegistrationNumber(array[1]);
+			return parkingService.getSlotNumbersForRegistrationNumber(array[1]);
 			
 		} else if(ParkingCommands.SLOTS_NUMBER_FOR_CARS_WITH_COLOR.getValue().equalsIgnoreCase(commandValue)) {
 			
 			/**** STEP2H. FETCH SLOT NUMBERS FOR CARS BY COLOR ***/
-			parkingService.getSlotNumbersForCarsWithColor(array[1]);
+			return parkingService.getSlotNumbersForCarsWithColor(array[1]);
 			
 		} else {
 			
 			/**** STEP2I. INVALID DATA INPUT - It will Never RUN :P ***/
-			System.out.println(ParkingConstants.STRING_404);
+			return ParkingConstants.STRING_404;
 		}
 
 		

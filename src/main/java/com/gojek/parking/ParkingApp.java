@@ -68,8 +68,10 @@ public class ParkingApp {
 					 *
 					 * 	Business Logic execution block
 					 * 
-					 **/					
-					commandManager.executeCommand(array);		
+					 **/
+					String response = commandManager.executeCommand(array);
+					System.out.println(response); 					
+							
 					
 					
 				} 

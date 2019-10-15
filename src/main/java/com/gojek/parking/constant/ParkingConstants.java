@@ -16,11 +16,11 @@ public class ParkingConstants {
 	public static final String SLOT_HEADER_SEP = "------------------------------------------------------------";
 	
 	/*** STRING EXCEPTION CONSTANTS ***/
-	public static final String RESERVE_SLOT_SUCCESS = "Allocated slot number: ##";
-	public static final String RESERVE_SLOT_ERROR = "Sorry, parking lot is full";
+	public static final String RESERVE_SLOT_SUCCESS = "Allocated slot number: ##.";
+	public static final String RESERVE_SLOT_ERROR = "Sorry, parking lot is full.";
 	
-	public static final String UNRESERVE_SLOT_SUCCESS = "Slot number ## is free";
-	public static final String UNRESERVE_SLOT_ERROR = "Parking spot:## is already vacant!!!";
+	public static final String UNRESERVE_SLOT_SUCCESS = "Slot number ## is free.";
+	public static final String UNRESERVE_SLOT_ERROR = "Parking spot:## is already vacant!!!.";
 	public static final String UNRESERVE_SLOT_INVALID_INDEX= "Invalid parking spot index entered.";
 
 
@@ -28,12 +28,14 @@ public class ParkingConstants {
 	public static final String INVALID_COMMAND_PARAM = "Missing Parameters in command: ##";
 	
 	
-	public static final String INIT_ERROR = "Parking Lot in not initilized. Kindly run 'create_parking_log' <number> command";
+	public static final String INIT_ERROR = "Parking Lot in not initilized. Kindly run 'create_parking_log' <number> command.";
 	
 	public static final String CREATE_SUCCESS = "Created a parking lot with ## slots";
 	public static final String CREATE_ERROR = "Parking Manager Already Exists. Kindly run 'RESET' to delete existing and then try creating again.";
 	
 	public static final String DELETE_SUCCESS = "Parking Lot deleted Successfully";
+	public static final String DELETE_ERROR = "Error in Deletion of Parking Lot";
+
 
 	/**** OTHERS ****/
 	public static final String STRING_404 = "You should not be here!!!";
