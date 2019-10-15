@@ -152,9 +152,9 @@ public class CommandManager {
 		
 		/**** STEP 3 PRINT CURRENT STATUS ***/
 		/**** JUST For TESTING the Current State of the OBJECT after EACH Operation ***/
-		System.out.println(ParkingConstants.CURRENT_STATUS_START);
-		parkingService.getParkingSlotStatus();
-		System.out.println(ParkingConstants.CURRENT_STATUS_START);
+		//System.out.println(ParkingConstants.CURRENT_STATUS_START);
+		//parkingService.getParkingSlotStatus();
+		//System.out.println(ParkingConstants.CURRENT_STATUS_START);
 		
 	}
 }

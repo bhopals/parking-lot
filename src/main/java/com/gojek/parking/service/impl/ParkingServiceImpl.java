@@ -64,8 +64,7 @@ public class ParkingServiceImpl implements ParkingService {
 			System.out.println(
 					ParkingConstants.UNRESERVE_SLOT_ERROR.replaceAll(ParkingConstants.REPLACER, String.valueOf(spot)));
 		} else {
-			System.out.println(
-					ParkingConstants.UNRESERVE_SLOT_ERROR.replaceAll(ParkingConstants.REPLACER, String.valueOf(spot)));
+			System.out.println(ParkingConstants.UNRESERVE_SLOT_INVALID_INDEX);
 		}
 	}
 
@@ -94,7 +93,8 @@ public class ParkingServiceImpl implements ParkingService {
 
 	@Override
 	public void deleteParkingManager() throws ParkingException {
-		parkingDao.deleteParkingManager();
+		if(parkingDao.deleteParkingManager())
+			System.out.println(ParkingConstants.DELETE_SUCCESS);
 	}
 
 	@Override

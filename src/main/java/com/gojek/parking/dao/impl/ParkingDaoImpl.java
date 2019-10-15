@@ -2,9 +2,9 @@ package com.gojek.parking.dao.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import com.gojek.parking.constant.ParkingConstants;
 import com.gojek.parking.dao.ParkingDao;
@@ -42,7 +42,8 @@ public class ParkingDaoImpl implements ParkingDao {
 		boolean isParkingManagerInitialized = false;
 		if(this.parkingDataMap == null) {	
 			this.parkingSpotSize = numberOfParkingSpots;
-			this.parkingDataMap = Collections.synchronizedMap(new HashMap<Integer, Car>(numberOfParkingSpots));
+			this.parkingDataMap = Collections.synchronizedMap(new TreeMap<Integer, Car>());
+			
 			for(int i=1;i<=numberOfParkingSpots;i++){
 				this.parkingDataMap.put(i, null);
 			}

@@ -33,7 +33,8 @@ public class ParkingConstants {
 	public static final String CREATE_SUCCESS = "Created a parking lot with ## slots";
 	public static final String CREATE_ERROR = "Parking Manager Already Exists. Kindly run 'RESET' to delete existing and then try creating again.";
 	
-	
+	public static final String DELETE_SUCCESS = "Parking Lot deleted Successfully";
+
 	/**** OTHERS ****/
 	public static final String STRING_404 = "You should not be here!!!";
 	public static final String CURRENT_STATUS_START = "----current status start -----";
