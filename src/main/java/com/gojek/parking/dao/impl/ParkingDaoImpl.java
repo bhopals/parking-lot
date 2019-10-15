@@ -5,6 +5,7 @@ import com.gojek.parking.exception.ParkingException;
 
 public class ParkingDaoImpl implements ParkingDao {
 
+	
 	@Override
 	public String initParkingManager(int numberOfParkingSpots) throws ParkingException {
 		// TODO Auto-generated method stub

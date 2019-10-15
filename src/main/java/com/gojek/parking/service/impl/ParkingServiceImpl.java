@@ -5,6 +5,8 @@ import com.gojek.parking.service.ParkingService;
 
 public class ParkingServiceImpl implements ParkingService {
 
+	//ParkingDao parkingDao = ParkingDao.getInstace;
+	
 	@Override
 	public String createParkingLot(int numberOfSpotsForParking) throws ParkingException {
 		// TODO Auto-generated method stub

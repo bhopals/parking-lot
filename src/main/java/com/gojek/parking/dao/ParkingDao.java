@@ -4,6 +4,7 @@ import com.gojek.parking.exception.ParkingException;
 
 public interface ParkingDao {
 	
+	
 	String initParkingManager(int numberOfParkingSpots) throws ParkingException;
 	
 	String deleteParkingManager() throws ParkingException;

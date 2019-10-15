@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.gojek.parking.constant.ParkingCommands;
-import com.gojek.parking.constant.ParkingConstants;
 import com.gojek.parking.exception.ParkingException;
+import com.gojek.parking.util.ParkingUtil;
 
 public class CommandManager {
+	
+	private static CommandManager instance;
 	
 	private static Map<String, Integer> commandMap = new HashMap<String, Integer>(){{
         put(ParkingCommands.LEAVE.getValue(), 0);
@@ -18,7 +20,20 @@ public class CommandManager {
         put(ParkingCommands.REGISTRATION_NUMBER_FOR_CARS_WITH_COLOR.getValue(), 1);
     }};
 	
+    
+	private CommandManager() {
+		super();
+	}
 	
+	public static CommandManager getInstance() {		
+		synchronized (commandMap) {
+			if(null == instance) {
+				instance = new CommandManager();
+			}		
+		}		
+		return instance;
+	}
+
 	/**
 	 * @return the commandMap
 	 */
@@ -26,22 +41,82 @@ public class CommandManager {
 		return commandMap;
 	}
 
-	public String isValidCommandEntered(String command) throws ParkingException {
+	public boolean isValidCommandEntered(String array[]) throws ParkingException {
+		
 		Integer paramValue;
-		String commandValue;
+		boolean isValidCommand = false;
 		
-		String array [] = command.split(ParkingConstants.SPACE);
-		
+		/*** FETCH Parameters from INPUT Variable
+		 * 
+		 *  	- COMMAND
+		 *      - PARAM VALUE
+		 *      
+		 ***/
 		paramValue = commandMap.get(array[0]);
 		
+		/*** COMMAND FOUND ***/
 		if(null != paramValue) {
 			
-			//if() If Parameter is INCORRECT
+			/***  PARAMETER EXPECTED - INVALID****/
+			if(paramValue.intValue() > 0 && !ParkingUtil.isNotNullOrNonEmptyString(array[1])) {
+				throw new ParkingException("MISSING PARAMETER in COMMAND:"+ array[0]);
+				
+			} else {				
+				/**** VALID ***/
+				isValidCommand = true;
+			}
+			
+		} else {/*** COMMAND NOT FOUND ***/			
+			throw new ParkingException("NO COMMAND FOUND:"+ array[0]);
+		}		
+		
+		return isValidCommand;
+	}
+	
+	
+	/*****
+	 *  Command execution Block
+	 *  
+	 * @param array
+	 */
+	public void executeCommand(String array[]) {
+		
+		String commandValue = array[0];
+		
+		if(ParkingCommands.CREATE_PARKING_LOT.getValue().equalsIgnoreCase(commandValue)) {
+			
+			System.out.println("CREATE_PARKING_LOT Command Block");
+			
+		} else if(ParkingCommands.PARK.getValue().equalsIgnoreCase(commandValue)) {
+			
+			System.out.println("PARK Command Block");
+			
+		} else if(ParkingCommands.LEAVE.getValue().equalsIgnoreCase(commandValue)) {
+			
+			System.out.println("LEAVE Command Block");
+			
+		} else if(ParkingCommands.RESET.getValue().equalsIgnoreCase(commandValue)) {
+			
+			System.out.println("RESET Command Block");
+			
+		} else if(ParkingCommands.STATUS.getValue().equalsIgnoreCase(commandValue)) {
+			
+			System.out.println("STATUS Command Block");
+			
+		} else if(ParkingCommands.REGISTRATION_NUMBER_FOR_CARS_WITH_COLOR.getValue().equalsIgnoreCase(commandValue)) {
+			
+			System.out.println("REGISTRATION_NUMBER_FOR_CARS_WITH_COLOR Command Block");
+			
+		} else if(ParkingCommands.SLOTS_NUMBER_FOR_REGISTRATION_NUMBER.getValue().equalsIgnoreCase(commandValue)) {
+			
+			System.out.println("SLOTS_NUMBER_FOR_REGISTRATION_NUMBER Command Block");
+			
+		} else if(ParkingCommands.SLOTS_NUMBER_FOR_CARS_WITH_COLOR.getValue().equalsIgnoreCase(commandValue)) {
+			
+			System.out.println("SLOTS_NUMBER_FOR_CARS_WITH_COLOR Command Block");
 			
 		} else {
-			throw new ParkingException(ParkingConstants.COMMAND_NOT_FOUND);
+			System.out.println("You should not be here!!!");
 		}
-		
-		return "";
 	}
 }

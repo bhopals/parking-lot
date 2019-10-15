@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import com.gojek.parking.constant.ParkingConstants;
+import com.gojek.parking.exception.ParkingException;
+import com.gojek.parking.manager.CommandManager;
+
 /**
  * Main App - ParkingAPP
  *
@@ -14,6 +18,7 @@ public class ParkingApp {
 	public static void main(String[] args) throws IOException {
 
 		BufferedReader messageReader = null;
+		CommandManager commandManager = CommandManager.getInstance();
 		
 		/*** Welcome BADGE of the Application ***/
 		System.out.println("\n");
@@ -29,21 +34,32 @@ public class ParkingApp {
 			
 			try {
 				
+				
 				/***Initialization of Buffered READER Object to Get the Input of from Console. */
 				messageReader = new BufferedReader(new InputStreamReader(System.in));
 				String input = messageReader.readLine().trim();
-				
-				/***** If EXIT - Abort the program *****/
-				if (input.equalsIgnoreCase("exit")) {
-					break;
-				} else {/***** ELSE - Read the COMMAND and take ACTION ACCORDINGLY *****/
-					
-					/***ACTION 1**/
-					
-					System.out.println("this is the command entered:" + input);
-				}
-			} catch (Exception e) {
+				String array [] = input.split(ParkingConstants.SPACE);
+				System.out.println("input:"+input);
 
+				if(null == input) {/*** IF null **/
+					throw new ParkingException("No Parameter Passed");
+				} else if (input.equalsIgnoreCase("exit")) {/***** If EXIT - Abort the program *****/
+					break;
+				} else if(commandManager.isValidCommandEntered(array)) { 
+					
+
+					/*****  
+					 * Read the COMMAND and take ACTION ACCORDINGLY 
+					 *
+					 * 	Business Logic execution block
+					 * 
+					 **/					
+					commandManager.executeCommand(array);		
+					
+					
+				} 
+			} catch (ParkingException e) {
+				System.out.println(e.getMessage());
 			} finally {
 				if(null != messageReader) {
 					messageReader.close();
