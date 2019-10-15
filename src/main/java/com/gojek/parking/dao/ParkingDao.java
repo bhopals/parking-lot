@@ -1,7 +1,5 @@
 package com.gojek.parking.dao;
 
-import java.util.Map;
-
 import com.gojek.parking.exception.ParkingException;
 import com.gojek.parking.model.Car;
 
@@ -11,7 +9,7 @@ public interface ParkingDao {
 	
 	void deleteParkingManager() throws ParkingException;
 	
-	Map<Integer, Car> getParkingSlotStatus(); 
+	String getParkingSlotStatus(); 
 	
 	Integer reserveParkingSpot(Car car) throws ParkingException; 
 	
@@ -23,5 +21,6 @@ public interface ParkingDao {
 	
 	String getSlotNumbersForRegistrationNumber(String registrationNumber);
 	
+	boolean isParkingLotInitialised();
 	
 }

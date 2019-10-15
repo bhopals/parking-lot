@@ -42,8 +42,13 @@ public class ParkingDaoImpl implements ParkingDao {
 
 	@Override
 	public void deleteParkingManager() throws ParkingException {
-		this.parkingDataMap = null;
-		this.parkingSpotSize = null;
+		if(null != parkingDataMap) {
+			this.parkingDataMap = null;
+			this.parkingSpotSize = null;
+		} else {
+			throw new ParkingException("Parking Lot in not initilized. Kindly run 'create_par' command");
+		}
+		
 
 	}
 
@@ -72,7 +77,7 @@ public class ParkingDaoImpl implements ParkingDao {
 		if(null != car){
 			this.parkingDataMap.put(spot, null);
 		} else {
-			throw new ParkingException("Parking spot is already vacant!!!");
+			throw new ParkingException("Parking spot:"+spot+" is already vacant!!!");
 		}
 		
 	}
@@ -81,8 +86,8 @@ public class ParkingDaoImpl implements ParkingDao {
 	public String getSlotNumbersForCarsWithColor(String color) {
 		List<String> list = new ArrayList<String>(parkingSpotSize);
 		for (Map.Entry<Integer, Car> entry : this.parkingDataMap.entrySet()) {
-		    Car car = entry.getValue();		    
-		    if(color.equalsIgnoreCase(car.getColor())) {
+		    Car car = entry.getValue();	
+		    if(null != car && color.equalsIgnoreCase(car.getColor())) {
 		    	list.add(entry.getKey().toString());
 		    }
 		}
@@ -94,7 +99,7 @@ public class ParkingDaoImpl implements ParkingDao {
 		List<String> list = new ArrayList<String>(parkingSpotSize);
 		for (Map.Entry<Integer, Car> entry : this.parkingDataMap.entrySet()) {
 		    Car car = entry.getValue();
-		    if(color.equalsIgnoreCase(car.getColor())) {
+		    if(null != car && color.equalsIgnoreCase(car.getColor())) {
 		    	list.add(car.getRegistrationNumber());
 		    } 			
 		}
@@ -106,7 +111,7 @@ public class ParkingDaoImpl implements ParkingDao {
 		List<String> list = new ArrayList<String>(parkingSpotSize);
 		for (Map.Entry<Integer, Car> entry : this.parkingDataMap.entrySet()) {
 		    Car car = entry.getValue();
-		    if(registrationNumber.equalsIgnoreCase(car.getRegistrationNumber())) {
+		    if(null != car && registrationNumber.equalsIgnoreCase(car.getRegistrationNumber())) {
 		    	list.add(entry.getKey().toString());
 		    } 			
 		}
@@ -122,8 +127,31 @@ public class ParkingDaoImpl implements ParkingDao {
 	}
 
 	@Override
-	public Map<Integer, Car> getParkingSlotStatus() {
-		return this.parkingDataMap;
+	public String getParkingSlotStatus() {
+		boolean isReservedSlot = false;
+		StringBuilder message = new StringBuilder();
+		for (Map.Entry<Integer, Car> entry : this.parkingDataMap.entrySet()) {
+			Car car = entry.getValue();
+			if(null != car) {
+				isReservedSlot = true;
+				message.append(entry.getKey()+" "+car.getRegistrationNumber()+"              "+car.getColor())
+						.append(ParkingConstants.NEW_LINE);
+			}
+		}
+		
+		if(isReservedSlot) {
+			return message.toString();
+		} else {
+			return ParkingConstants.NO_SLOT_FOUND;
+		}
+		
 	}
+
+	@Override
+	public boolean isParkingLotInitialised() {
+		return this.parkingDataMap == null ? false : true;
+	}
+	
+	
 
 }

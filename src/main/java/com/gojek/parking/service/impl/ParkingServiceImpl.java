@@ -47,14 +47,10 @@ public class ParkingServiceImpl implements ParkingService {
 	public void getParkingSlotStatus() {
 		System.out.println("Slot No. Registration No.              Color ");
 		System.out.println("------------------------------------------------------------");		
-		for (Map.Entry<Integer, Car> entry : parkingDao.getParkingSlotStatus().entrySet()) {
-		    Car car = entry.getValue();
-		    System.out.println(entry.getKey()+" "+car.getRegistrationNumber()+"              "+car.getColor());			
-		}		
-		System.out.println("------------------------------------------------------------");
-		
+		System.out.println(parkingDao.getParkingSlotStatus());		
+		System.out.println("------------------------------------------------------------");		
 	}
-
+	
 	@Override
 	public void getSlotNumbersForCarsWithColor(String color) {
 		System.out.println(parkingDao.getSlotNumbersForCarsWithColor(color));		
@@ -73,6 +69,11 @@ public class ParkingServiceImpl implements ParkingService {
 	@Override
 	public void deleteParkingManager() throws ParkingException {
 		parkingDao.deleteParkingManager();
+	}
+
+	@Override
+	public boolean isParkingLotInitialised() {
+		return parkingDao.isParkingLotInitialised();
 	}
 
 }
