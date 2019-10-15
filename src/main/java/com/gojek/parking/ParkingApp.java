@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import com.gojek.parking.constant.ParkingCommands;
 import com.gojek.parking.constant.ParkingConstants;
 import com.gojek.parking.exception.ParkingException;
 import com.gojek.parking.manager.CommandManager;
@@ -21,11 +22,11 @@ public class ParkingApp {
 		CommandManager commandManager = CommandManager.getInstance();
 		
 		/*** Welcome BADGE of the Application ***/
-		System.out.println("\n");
-		System.out.println("************************************************************************");
-		System.out.println("**************************  WELCOME TO PARKING APP *********************");
-		System.out.println("************************************************************************");
-		System.out.println("\n");
+		System.out.println(ParkingConstants.NEW_LINE);
+		System.out.println(ParkingConstants.HEADER_LINE);
+		System.out.println(ParkingConstants.HEADER_TEXT);
+		System.out.println(ParkingConstants.HEADER_LINE);
+		System.out.println(ParkingConstants.NEW_LINE);
 		
 		/*** Print Application COMMAND DETAILS ***/
 		printActionCommandDetails();
@@ -35,20 +36,36 @@ public class ParkingApp {
 			try {
 				
 				
-				/***Initialization of Buffered READER Object to Get the Input of from Console. */
+				/***Initialisation of Buffered READER Object to Get the Input of from Console. */
 				messageReader = new BufferedReader(new InputStreamReader(System.in));
 				String input = messageReader.readLine().trim();
 				String array [] = input.split(ParkingConstants.SPACE);
-				System.out.println("input:"+input);
 
-				if(null == input) {/*** IF null **/
-					throw new ParkingException("No Parameter Passed");
-				} else if (input.equalsIgnoreCase("exit")) {/***** If EXIT - Abort the program *****/
+				
+				printActionCommandDetails();
+
+				if(null == input) {
+					
+					/**** CHECK1 - If Command not Entered - Throw Exception***/
+					throw new ParkingException(ParkingConstants.NO_COMMAND_ENTERED);
+
+				} else if (input.equalsIgnoreCase(ParkingCommands.EXIT.getValue())) {
+
+					/**** CHECK2 - If Command is EXIT - Then close the stream ***/
 					break;
+					
+				} else if (input.equalsIgnoreCase(ParkingCommands.HELP.getValue())) {
+
+					/**** CHECK3 - HELP - Print the Command Details ***/
+					printActionCommandDetails();
+					
 				} else if(commandManager.isValidCommandEntered(array)) { 
+					
 					
 
 					/*****  
+					 * CHECK4 - 
+					 * 			
 					 * Read the COMMAND and take ACTION ACCORDINGLY 
 					 *
 					 * 	Business Logic execution block
@@ -74,20 +91,21 @@ public class ParkingApp {
 	 * To Print Command Details 
 	 */
 	private static void printActionCommandDetails() {		
-		System.out.println("A. Commands for Parking Actions");
-		System.out.println("----------------------------------------------------------");
-		System.out.println("1. Parking Initialization ==> create_parking_lot <NUMBER>");
-		System.out.println("2. Park the Car ==> park <car_number> <CAR_COLOR>");
-		System.out.println("3. Unpark the Car	==> leave <PARKING_SLOT_NUMBER>");
-		System.out.println("4. Rest the Parking Lot ==> reset");
-		System.out.println("\n");
-		System.out.println("B. Commands to Query Details");
-		System.out.println("----------------------------------------------------------");
-		System.out.println("1. Parking Lot current status ==> status");
-		System.out.println("2. Fetch registerd cars by car color ==> registration_numbers_for_cars_with_color <CAR_COLOR>");
-		System.out.println("3. Fetch parking number of entered color cars ==> slot_numbers_for_cars_with_color <CAR_COLOR>");
-		System.out.println("4. Fetch parking number by car reg. number ==> slot_number_for_registration_number <CAR_NUMBER>");
-		System.out.println("Please enter your input:");
+	
+		System.out.println(ParkingConstants.LINE1);
+		System.out.println(ParkingConstants.LINE2);
+		System.out.println(ParkingConstants.LINE3);
+		System.out.println(ParkingConstants.LINE4);
+		System.out.println(ParkingConstants.LINE5);
+		System.out.println(ParkingConstants.LINE6);
+		System.out.println(ParkingConstants.NEW_LINE);
+		System.out.println(ParkingConstants.LINE7);
+		System.out.println(ParkingConstants.LINE2);
+		System.out.println(ParkingConstants.LINE8);
+		System.out.println(ParkingConstants.LINE9);
+		System.out.println(ParkingConstants.LINE10);
+		System.out.println(ParkingConstants.LINE11);
+		System.out.println(ParkingConstants.LINE12);
 	}
-
+	
 }

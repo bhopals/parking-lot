@@ -8,7 +8,7 @@ package com.gojek.parking.constant;
  */
 public enum ParkingCommands {
 
-	PARK("park"), RESET("reset"), LEAVE("leave"), STATUS("status"), CREATE_PARKING_LOT(
+	PARK("park"), RESET("reset"), HELP("help"), EXIT("exit"),LEAVE("leave"), STATUS("status"), CREATE_PARKING_LOT(
 			"create_parking_lot"), REGISTRATION_NUMBER_FOR_CARS_WITH_COLOR(
 					"registration_numbers_for_cars_with_colour"), SLOTS_NUMBER_FOR_REGISTRATION_NUMBER(
 							"slot_number_for_registration_number"), SLOTS_NUMBER_FOR_CARS_WITH_COLOR(
