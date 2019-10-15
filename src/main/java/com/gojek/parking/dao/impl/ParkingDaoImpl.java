@@ -14,9 +14,9 @@ public class ParkingDaoImpl implements ParkingDao {
 
 	private Map<Integer, Car> parkingDataMap = null;
 	private Integer parkingSpotSize = null;
-	private ParkingDao instance = null;
+	private static ParkingDao instance = null;
 	
-	public ParkingDao getInstance() {	
+	public static ParkingDao getInstance() {	
 		if(null == instance) {
 			synchronized(ParkingDao.class) {				
 				if(null == instance) {

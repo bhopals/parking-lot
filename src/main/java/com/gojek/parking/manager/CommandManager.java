@@ -5,11 +5,15 @@ import java.util.Map;
 
 import com.gojek.parking.constant.ParkingCommands;
 import com.gojek.parking.exception.ParkingException;
+import com.gojek.parking.service.ParkingService;
+import com.gojek.parking.service.impl.ParkingServiceImpl;
 import com.gojek.parking.util.ParkingUtil;
 
 public class CommandManager {
 	
-	private static CommandManager instance;
+	private static CommandManager commandManager;
+	
+	private ParkingService parkingService = ParkingServiceImpl.getInstance();
 	
 	private static Map<String, Integer> commandMap = new HashMap<String, Integer>(){{
         put(ParkingCommands.LEAVE.getValue(), 0);
@@ -28,11 +32,11 @@ public class CommandManager {
 	
 	public static CommandManager getInstance() {		
 		synchronized (commandMap) {
-			if(null == instance) {
-				instance = new CommandManager();
+			if(null == commandManager) {
+				commandManager = new CommandManager();
 			}		
 		}		
-		return instance;
+		return commandManager;
 	}
 
 	/**
@@ -79,41 +83,45 @@ public class CommandManager {
 	 *  Command execution Block
 	 *  
 	 * @param array
+	 * @throws ParkingException 
 	 */
-	public void executeCommand(String array[]) {
+	public void executeCommand(String array[]) throws ParkingException {
 		
 		String commandValue = array[0];
 		
 		if(ParkingCommands.CREATE_PARKING_LOT.getValue().equalsIgnoreCase(commandValue)) {
 			
+			Integer val = Integer.parseInt(array[1]);				
+			parkingService.createParkingLot(val);
+			
 			System.out.println("CREATE_PARKING_LOT Command Block");
 			
 		} else if(ParkingCommands.PARK.getValue().equalsIgnoreCase(commandValue)) {
-			
+			//parkingService.reserveParkingSlot(registrationNumber, color)(val);
 			System.out.println("PARK Command Block");
 			
 		} else if(ParkingCommands.LEAVE.getValue().equalsIgnoreCase(commandValue)) {
-			
+			//parkingService.leaveParkingSlot(val);
 			System.out.println("LEAVE Command Block");
 			
 		} else if(ParkingCommands.RESET.getValue().equalsIgnoreCase(commandValue)) {
-			
+			//parkingService.deleteParkingManager();
 			System.out.println("RESET Command Block");
 			
 		} else if(ParkingCommands.STATUS.getValue().equalsIgnoreCase(commandValue)) {
-			
+			//parkingService.getParkingSlotStatus();
 			System.out.println("STATUS Command Block");
 			
 		} else if(ParkingCommands.REGISTRATION_NUMBER_FOR_CARS_WITH_COLOR.getValue().equalsIgnoreCase(commandValue)) {
-			
+			//parkingService.getRegistrationNumberForCarsWithColor(color);
 			System.out.println("REGISTRATION_NUMBER_FOR_CARS_WITH_COLOR Command Block");
 			
 		} else if(ParkingCommands.SLOTS_NUMBER_FOR_REGISTRATION_NUMBER.getValue().equalsIgnoreCase(commandValue)) {
-			
+			//parkingService.getSlotNumbersForRegistrationNumber(registrationNumber);
 			System.out.println("SLOTS_NUMBER_FOR_REGISTRATION_NUMBER Command Block");
 			
 		} else if(ParkingCommands.SLOTS_NUMBER_FOR_CARS_WITH_COLOR.getValue().equalsIgnoreCase(commandValue)) {
-			
+			//parkingService.getSlotNumbersForCarsWithColor(color);
 			System.out.println("SLOTS_NUMBER_FOR_CARS_WITH_COLOR Command Block");
 			
 		} else {

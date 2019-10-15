@@ -10,7 +10,20 @@ import com.gojek.parking.service.ParkingService;
 
 public class ParkingServiceImpl implements ParkingService {
 
-	ParkingDao parkingDao = new ParkingDaoImpl().getInstance();
+	ParkingDao parkingDao = ParkingDaoImpl.getInstance();
+	
+	private static ParkingService instance = null;
+	
+	public static ParkingService getInstance() {	
+		if(null == instance) {
+			synchronized(ParkingService.class) {				
+				if(null == instance) {
+					instance = new ParkingServiceImpl();
+				}
+			}
+		}
+		return instance;
+	}
 	
 	@Override
 	public String createParkingLot(int numberOfSpotsForParking) throws ParkingException {
