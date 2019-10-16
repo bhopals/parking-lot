@@ -1,12 +1,14 @@
 package com.gojek.parking.manager;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.gojek.parking.constant.ParkingCommands;
+import com.gojek.parking.constant.ParkingConstants;
 import com.gojek.parking.exception.ParkingException;
 
 public class CommandManagerTest {
@@ -14,13 +16,13 @@ public class CommandManagerTest {
 	CommandManager manager = CommandManager.getInstance();
 	
 	@Before
-	public void before() {
-		//TODO;
+	public void before() throws ParkingException {
+		manager.isValidCommandEntered(new String[]{ParkingCommands.RESET.getValue()});
 	}
 	
 	@After
 	public void after() {
-	//TODO
+		//TODO
 	}
 	
 	@Test
@@ -74,44 +76,86 @@ public class CommandManagerTest {
 		
 		/**** CREATE ***/
 		result = manager.isValidCommandEntered(new String[]{ParkingCommands.CREATE_PARKING_LOT.getValue(), "55", "TEST"});
-		assertEquals(true, result);
 		
 		/**** PARK ***/
 		result = manager.isValidCommandEntered(new String[]{ParkingCommands.PARK.getValue(),"TATA"});
-		assertEquals(true, result);
 
 		/**** LEAVE ***/
 		result = manager.isValidCommandEntered(new String[]{ParkingCommands.LEAVE.getValue()});
-		assertEquals(true, result);
 		
 		/**** STATUS ***/
 		result = manager.isValidCommandEntered(new String[]{ParkingCommands.STATUS.getValue(), "Test"});
-		assertEquals(true, result);
 
 		/**** HELP ***/
 		result = manager.isValidCommandEntered(new String[]{ParkingCommands.HELP.getValue(), "ADA"});
-		assertEquals(true, result);
 
 		/**** RESET ***/
 		result = manager.isValidCommandEntered(new String[]{ParkingCommands.RESET.getValue(),"AAA"});
-		assertEquals(true, result);
 		
 		/**** FETCH  - REGISTRATION_NUMBER_FOR_CARS_WITH_COLOR ***/
 		result = manager.isValidCommandEntered(new String[]{ParkingCommands.REGISTRATION_NUMBER_FOR_CARS_WITH_COLOR.getValue()});
-		assertEquals(true, result);
 
 		/**** FETCH  - SLOTS_NUMBER_FOR_REGISTRATION_NUMBER ***/
 		result = manager.isValidCommandEntered(new String[]{ParkingCommands.SLOTS_NUMBER_FOR_REGISTRATION_NUMBER.getValue()});
-		assertEquals(true, result);
 		
 		/**** FETCH  - SLOTS_NUMBER_FOR_CARS_WITH_COLOR ***/
 		result = manager.isValidCommandEntered(new String[]{ParkingCommands.SLOTS_NUMBER_FOR_CARS_WITH_COLOR.getValue()});
-		assertEquals(true, result);
 
 		/*** INVALID WITH DUMMY **/
 		result = manager.isValidCommandEntered(new String[]{"",""});
-		assertEquals(false, result);
-		
+		assertEquals(true, result);
 	}
+
+	@Test
+	public void executeCommandTest() throws ParkingException {
+	
+		String response;
+		
+		/**** CREATE ***/
+		response = manager.executeCommand(new String[]{ParkingCommands.CREATE_PARKING_LOT.getValue(),"10"});
+		assertEquals(response, "Created a parking lot with 10 slots");
+		
+		/**** PARK ***/
+		response = manager.executeCommand(new String[]{ParkingCommands.PARK.getValue(),"TATA","White"});
+		assertEquals(response, "Allocated slot number: 1.");
+
+		/**** LEAVE ***/
+		response = manager.executeCommand(new String[]{ParkingCommands.LEAVE.getValue(),"1"});
+		assertEquals(response, "Slot number 1 is free.");
+		
+		/**** STATUS ***/
+		manager.executeCommand(new String[]{ParkingCommands.PARK.getValue(),"TATA","White"});
+		manager.executeCommand(new String[]{ParkingCommands.PARK.getValue(),"ABAC","White"});
+
+		response = manager.executeCommand(new String[]{ParkingCommands.STATUS.getValue()});
+		assertTrue(response.contains("TATA"));
+		assertTrue(response.contains("ABAC"));
+		
+		/**** FETCH  - REGISTRATION_NUMBER_FOR_CARS_WITH_COLOR ***/
+		response = manager.executeCommand(new String[]{ParkingCommands.REGISTRATION_NUMBER_FOR_CARS_WITH_COLOR.getValue(), "White"});
+		assertEquals(response, "[TATA, ABAC]");
+		
+		response = manager.executeCommand(new String[]{ParkingCommands.REGISTRATION_NUMBER_FOR_CARS_WITH_COLOR.getValue(), "Orange"});
+		assertEquals(response, ParkingConstants.NOT_FOUND);
+		
+		/**** FETCH  - SLOTS_NUMBER_FOR_REGISTRATION_NUMBER ***/
+		response = manager.executeCommand(new String[]{ParkingCommands.SLOTS_NUMBER_FOR_REGISTRATION_NUMBER.getValue(), "TATA"});
+		assertEquals(response, "[1]");
+		
+		response = manager.executeCommand(new String[]{ParkingCommands.SLOTS_NUMBER_FOR_REGISTRATION_NUMBER.getValue(), "BATA"});
+		assertEquals(response, ParkingConstants.NOT_FOUND);
+		
+		/**** FETCH  - SLOTS_NUMBER_FOR_CARS_WITH_COLOR ***/
+		response = manager.executeCommand(new String[]{ParkingCommands.SLOTS_NUMBER_FOR_CARS_WITH_COLOR.getValue(), "White"});
+		assertEquals(response, "[1, 2]");
+
+		response = manager.executeCommand(new String[]{ParkingCommands.SLOTS_NUMBER_FOR_CARS_WITH_COLOR.getValue(), "Blue"});
+		assertEquals(response, ParkingConstants.NOT_FOUND);
+		
+		manager.executeCommand(new String[]{ParkingCommands.RESET.getValue()});
+
+	}
+	
+	
 
 }
