@@ -84,7 +84,7 @@ public class ParkingDaoImpl implements ParkingDao {
 	@Override
 	public Integer unReserveParkingSpot(int spot) {
 		Integer unReservedSpot = 0;
-		if(spot > this.parkingSpotSize) {
+		if(spot > this.parkingSpotSize || spot < 0) {
 			unReservedSpot = -1;
 		} else {
 			Car car = this.parkingDataMap.get(spot);
@@ -147,7 +147,6 @@ public class ParkingDaoImpl implements ParkingDao {
 				}
 			}
 		}
-		
 		if(isReservedSlot) {
 			return message.toString();
 		} else {

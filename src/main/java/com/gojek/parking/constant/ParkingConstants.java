@@ -12,7 +12,7 @@ public class ParkingConstants {
 	public static final String NO_COMMAND_ENTERED = "No Parameter Passed";
 	public static final String NO_SLOT_FOUND= "No slots found";
 	
-	public static final String SLOT_STATUS_HEADER = "Slot No.  Reg.No.  	 Color ";
+	public static final String SLOT_STATUS_HEADER = "Slot No. Reg.No.   	Color ";
 	public static final String SLOT_HEADER_SEP = "------------------------------------------------------------";
 	
 	/*** STRING EXCEPTION CONSTANTS ***/

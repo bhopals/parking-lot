@@ -68,14 +68,15 @@ public class ParkingServiceImpl implements ParkingService {
 
 	@Override
 	public String getParkingSlotStatus() {
-		StringBuilder message = new StringBuilder();
-		message.append(ParkingConstants.SLOT_STATUS_HEADER)
-		.append(ParkingConstants.SLOT_STATUS_HEADER)
+		StringBuilder msg = new StringBuilder();
+		msg.append(ParkingConstants.SLOT_STATUS_HEADER)
+		.append(ParkingConstants.NEW_LINE)
 		.append(ParkingConstants.SLOT_HEADER_SEP)
+		.append(ParkingConstants.NEW_LINE)
 		.append(parkingDao.getParkingSlotStatus())
 		.append(ParkingConstants.SLOT_HEADER_SEP);
 		
-		return message.toString();
+		return msg.toString();
 	}
 
 	@Override

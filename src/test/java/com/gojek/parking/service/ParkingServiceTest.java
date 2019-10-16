@@ -20,7 +20,6 @@ public class ParkingServiceTest {
 	public void before() {
 		response = null;
 		service = ParkingServiceImpl.getInstance();
-		service.deleteParkingManager();
 	}
 	
 	@After
